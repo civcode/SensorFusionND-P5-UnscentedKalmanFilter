@@ -1,8 +1,14 @@
 #ifndef UKF_H
 #define UKF_H
 
+#include <iostream>
 #include "Eigen/Dense"
 #include "measurement_package.h"
+#include <vector>
+//#include "tools.h" 
+
+using Eigen::MatrixXd;
+using Eigen::VectorXd;
 
 class UKF {
  public:
@@ -95,6 +101,30 @@ class UKF {
 
   // Sigma point spreading parameter
   double lambda_;
+  
+  // Measurement matrix for lidar measurements
+  MatrixXd H_lidar_;
+
+  // Measurement covariance matrix for lidar measurements
+  MatrixXd R_lidar_;
+
+  // Matrix for sigma points in measurement space
+  MatrixXd Zsig_;
+
+  // Lidar NIS values
+  std::vector<double> nis_vals_lidar_;
+
+  // Radar NIS values
+  std::vector<double> nis_vals_radar_;
+
+  // Lidar NIS limit 
+  // value of chi-square.050 in 2d case
+  double nis_lidar_limit_;
+
+  // Radar NIS limit
+  // value of chi-square.050 in 3d case
+  double nis_radar_limit_;
+  
 };
 
 #endif  // UKF_H
